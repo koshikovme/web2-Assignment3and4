@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const JWT_SECRET = "icnsicb8*#*)!@CNSIOIEOIENW";
 // Sign In controller
 exports.signInForm = function (req, res) {
-  response.sendFile(path.resolve(__dirname, "../views/signIn.html"));
+  res.sendFile("C:\\Users\\Алимжан\\Desktop\\node2\\views\\signIn.html");
 };
 
 exports.signIn = async function (req, res) {
@@ -21,7 +21,7 @@ exports.signIn = async function (req, res) {
     const token = jwt.sign({ id: user._id, login: user.login }, JWT_SECRET);
     console.log("Token created here:", token);
 
-    return res.json({ status: "ok", data: { token, user: user } }); // Return the response here
+    return res.json({ status: "ok", data: { token, user: user } });
   }
 
   return res.json({ status: "error", error: "Invalid username or password" });
@@ -29,13 +29,8 @@ exports.signIn = async function (req, res) {
 
 exports.logout = async function (req, res) {
   try {
-    // Clear the token from the client side (if stored)
     res.clearCookie("token");
 
-    // Optionally, you may want to clear the token from local storage if you're using it in your client-side code
-    // localStorage.removeItem("token");
-
-    // Redirect the user to the homepage or any other appropriate page
     res.redirect("/");
   } catch (error) {
     console.error("Error occurred during logout:", error);
@@ -47,7 +42,6 @@ exports.editProfile = async function (req, res) {
   try {
     const { editName, editAge, login, name } = req.body;
 
-    // Find the user by both login and name
     const user = await User.findOne({
       login: login,
       name: name,
@@ -57,14 +51,11 @@ exports.editProfile = async function (req, res) {
       return res.status(404).json({ error: "User not found" });
     }
 
-    // Update user information
     user.name = editName;
     user.age = editAge;
 
-    // Save the updated user data
     await user.save();
 
-    // Return success response
     res.json({ success: true, message: "Profile updated successfully" });
   } catch (error) {
     console.error("Error updating user profile:", error);
@@ -81,7 +72,6 @@ exports.profile = async (req, res) => {
       console.log("I'm here!!!");
       return res.status(404).json({ error: "User not found" });
     }
-    // You can customize the response as per your requirements
     res.json({ user });
   } catch (error) {
     console.error("Error fetching user profile:", error);
@@ -108,7 +98,7 @@ exports.authenticateToken = function (req, res, next) {
 
 // Sign Up controller
 exports.signUpForm = function (req, res) {
-  response.sendFile(path.resolve(__dirname, "../views/signUp.html"));
+  res.sendFile("C:\\Users\\Алимжан\\Desktop\\node2\\views\\signUp.html");
 };
 
 exports.signUp = async function (req, res) {
