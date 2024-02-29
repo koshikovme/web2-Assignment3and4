@@ -1,16 +1,16 @@
 var { IsAuth } = require("./userController");
 
 exports.main = function (request, response) {
-  response.sendFile("C:\\Users\\Алимжан\\Desktop\\node2\\views\\main.html");
+  response.sendFile("../views/main.html");
 };
 
 exports.plans = function (request, response) {
-  response.sendFile("C:\\Users\\Алимжан\\Desktop\\node2\\views\\plans.html");
+  response.sendFile("../views/plans.html");
 };
 exports.contacts = function (request, response) {
-  response.sendFile("C:\\Users\\Алимжан\\Desktop\\node2\\views\\contacts.html");
+  response.sendFile("../views/contacts.html");
 };
 
 exports.profile = function (request, response) {
-  response.sendFile("C:\\Users\\Алимжан\\Desktop\\node2\\views\\profile.html");
+  response.sendFile("../views/profile.html");
 };
