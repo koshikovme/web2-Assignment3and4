@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <title>Добавление пользователя</title>
+        <meta charset="utf-8" />
+      </head>
+      <body>
+        <h1>Добавление пользователя</h1>
+        <form action="users/signUp" method="POST" id="reg-form">
+          <label>Логин</label>
+          <input name="login" id="login" /><br /><br />
+          <label>Имя</label>
+          <input name="name" id="name" /><br /><br />
+          <label>Пароль</label>
+          <input name="password" id="password" /><br /><br />
+          <label>Возраст</label>
+          <input
+            name="age"
+            type="number"
+            min="1"
+            max="110"
+            id="age"
+          /><br /><br />
+          <input type="submit" value="Отправить" />
+        </form>
+        <script>
+          const form = document.getElementById("reg-form");
+          form.addEventListener("submit", registerUser);
+          function registerUser(event) {
+            event.preventDefault();
+            const login = document.getElementById("login").value;
+            const name = document.getElementById("name").value;
+            const password = document.getElementById("password").value;
+            const age = document.getElementById("age").value;
+
+            const result = fetch("/users/signUp", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ login, name, password, age }),
+            })
+              .then((res) => res.json())
+              .then((data) => {
+                alert("Registered successfully!!");
+                console.log(data); // Log the response data from the server
+                // Handle the response data as needed
+                window.location.href = "/";
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+                // Handle errors
+              });
+          }
+        </script>
+        <!-- <script src="\JS\auth.js"></script> -->
+      </body>
+      <html></html>
+    </html>
+  </body>
+</html>

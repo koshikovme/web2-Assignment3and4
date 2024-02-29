@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Ubuntu"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="header-grid">
+      <a href="#"><img src="../imgs/logo.png" alt="" /></a>
+      <menu>
+        <li><a href="/" class="active">Home</a></li>
+        <li><a href="/plans" id="loadPageLink">Plans</a></li>
+        <li><a href="/contacts">Contacts</a></li>
+      </menu>
+
+      <div class="btn-group">
+        <button id="profileBtn" style="display: none">
+          <a href="/profile">Profile</a>
+        </button>
+        <button id="logoutBtn" onclick="logout()" style="display: none">
+          <a>Log out</a>
+        </button>
+
+        <button id="signInBtn" class="signInBtn">
+          <a href="/users/signUp">Sign Up</a>
+        </button>
+        <button id="signUpBtn" class="signUpBtn">
+          <a href="/users/signIn">Sign In</a>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="jumbotron">
+        <div class="offer">
+          <h1>Connect with nature</h1>
+          <button>Start</button>
+        </div>
+
+        <div class="to-fill">
+          <form action="" class="form">
+            <label for="name" class="form__label">Name</label>
+            <input type="text" placeholder="Name" class="" id="name" />
+            <label for="email" class="form__label">Email</label>
+            <input type="text" placeholder="Email" class="" id="email" />
+
+            <label for="subject" class="form__label">Country</label>
+
+            <input type="text" placeholder="Country" class="" id="country" />
+
+            <input type="submit" value="Submit" />
+          </form>
+        </div>
+      </section>
+
+      <section class="features">
+        <h2>What we can offer?</h2>
+        <div class="content">
+          <div class="feature">
+            <img src="../imgs/feature1.jpg" alt="" />
+            <h2>Comfortable camps</h2>
+          </div>
+          <div class="feature">
+            <img src="../imgs/feature2.jpg" alt="" />
+            <h2>Delicious meals</h2>
+          </div>
+          <div class="feature">
+            <img src="../imgs/feature3.jpg" alt="" />
+            <h2>Funny events</h2>
+          </div>
+        </div>
+      </section>
+
+      <section class="about-us">
+        <img src="/imgs/test6.jpg" alt="" />
+        <div class="text">
+          <h2>About Us</h2>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+            Perspiciatis ab, in iste blanditiis recusandae facilis alias ducimus
+            suscipit, et totam doloribus cupiditate dolorum animi repellendus
+            autem non dignissimos veniam excepturi? Lorem ipsum dolor sit amet
+            consectetur adipisicing elit. Suscipit fugiat, aut quam id ipsam
+            provident porro nam voluptates eos tempore explicabo. Nesciunt
+            aliquid, repellat alias quo nihil ad blanditiis soluta?<br /><br />
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem, at
+            similique architecto aliquid, quisquam exercitationem ad illo
+            laborum hic sapiente repellendus adipisci blanditiis fugit quidem
+            ducimus facilis soluta corporis tempora. Lorem ipsum dolor sit amet
+            consectetur adipisicing elit. Expedita laboriosam quam eos eaque
+            harum commodi iusto delectus assumenda impedit consectetur aperiam,
+            consequuntur, quod ab deserunt dolorum. Rem inventore cum
+            repellendus!
+          </p>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <div class="footer">
+        <ul class="first-row">
+          <li class="footer-title"><p>About</p></li>
+          <li>
+            <p>
+              pure lite is owned and operated by <br />
+              Purelite Inc., a liquor company that<br />offers the best pure
+              beer in the market today!
+            </p>
+          </li>
+          <li>
+            <p>Any questions? Our email address is ask@purelite.com</p>
+          </li>
+          <li>
+            <p>Drink Responsibly</p>
+          </li>
+          <li>
+            <p>Credit to pureliteTM</p>
+          </li>
+        </ul>
+
+        <ul class="second-row">
+          <li class="footer-title"><p>Info</p></li>
+          <li><a href="#">Search</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Frequently Asked Questions</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Terms and Conditions</a></li>
+          <li><a href="#">Privacy policy</a></li>
+          <li><a href="#">Returns and refunds policy</a></li>
+          <li><a href="#">Shop Our Instagram</a></li>
+        </ul>
+
+        <div class="footer-logos">
+          <div class="first-logo"><img src="../imgs/logo.png" alt="" /></div>
+          <div class="second-logo"><img src="../imgs/logo.png" alt="" /></div>
+        </div>
+        <div class="footer-left-side">
+          <img src="imgs/footer1.png" alt="" />
+        </div>
+        <div class="footer-bottom">
+          <img src="imgs/footer2.png" alt="" />
+        </div>
+      </div>
+    </footer>
+
+    <!-- <script src="\JS\auth.js"></script> -->
+    <link rel="stylesheet" href="\styles\main.css" type="text/css" />
+    <script>
+      function updateNavigation() {
+        const token = localStorage.getItem("token");
+        if (token) {
+          // User is logged in
+          document.getElementById("profileBtn").style.display = "block";
+          document.getElementById("logoutBtn").style.display = "block";
+          document.getElementById("signInBtn").style.display = "none";
+          document.getElementById("signUpBtn").style.display = "none";
+        } else {
+          // User is not logged in
+          document.getElementById("profileBtn").style.display = "none";
+          document.getElementById("logoutBtn").style.display = "none";
+          document.getElementById("signInBtn").style.display = "block";
+          document.getElementById("signUpBtn").style.display = "block";
+        }
+      }
+
+      // Function to handle logout
+      function logout() {
+        localStorage.removeItem("token");
+        updateNavigation();
+        window.location.href = "/";
+      }
+
+      // Call updateNavigation when the page loads
+      updateNavigation();
+    </script>
+  </body>
+</html>

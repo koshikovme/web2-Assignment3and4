@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Добавление пользователя</h1>
+    <form action="signIn" method="POST" id="loginForm">
+      <label>Логин</label>
+      <input name="login" id="login" /><br /><br />
+      <label>Пароль</label>
+      <input name="password" id="password" /><br /><br />
+      <input type="submit" value="Отправить" />
+    </form>
+
+    <div id="btn-group"></div>
+
+    <div id="profileData"></div>
+
+    <script>
+      // Function to fetch profile data with token
+      async function fetchProfileData() {
+        const token = localStorage.getItem("token");
+        const login = document.getElementById("login");
+        if (token) {
+          const response = await fetch("/users/profile", {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          });
+          const data = await response.json();
+          console.log("Profile data:", data);
+        } else {
+          console.log("Token not found in local storage.");
+        }
+      }
+
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", async function (event) {
+          event.preventDefault();
+
+          const login = document.getElementById("login").value;
+          const password = document.getElementById("password").value;
+
+          const response = await fetch("/users/signIn", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ login, password }),
+          });
+
+          const data = await response.json();
+          if (data.status === "ok") {
+            const token = data.data.token;
+            const login = data.data.login;
+
+            localStorage.setItem("token", token);
+            localStorage.setItem("login", login); // Optionally, you can also store the login in the local storage
+
+            alert("Token added to local storage!");
+            window.location.href = "/profile"; // Redirect to profile page
+          } else {
+            alert(data.error);
+          }
+
+          // Fetch profile data when the page loads
+          fetchProfileData();
+        });
+    </script>
+  </body>
+</html>

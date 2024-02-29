@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Profile</title>
+  </head>
+  <body>
+    <header class="header-grid">
+      <a href="#"><img src="../imgs/logo.png" alt="" /></a>
+      <menu>
+        <li><a href="/" class="active">Home</a></li>
+        <li><a href="/plans" id="loadPageLink">Plans</a></li>
+        <li><a href="/contacts">Contacts</a></li>
+      </menu>
+
+      <div class="btn-group">
+        <button id="profileBtn" style="display: none">
+          <a href="/profile">Profile</a>
+        </button>
+        <button id="logoutBtn" onclick="logout()" style="display: none">
+          <a>Log out</a>
+        </button>
+
+        <button id="signInBtn" class="signInBtn">
+          <a href="/users/signUp">Sign Up</a>
+        </button>
+        <button id="signUpBtn" class="signUpBtn">
+          <a href="/users/signIn">Sign In</a>
+        </button>
+      </div>
+    </header>
+    <main class="profile">
+      <h1>User Profile</h1>
+      <div id="profileData"></div>
+
+      <h2>Order History</h2>
+      <ul id="orderHistory"></ul>
+      <!-- List to display order history -->
+    </main>
+
+    <div id="myModal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Edit Profile</h2>
+        <form id="editProfileForm">
+          <input
+            type="text"
+            id="editName"
+            name="editName"
+            required
+            placeholder="Enter new name..."
+          />
+          <input
+            type="number"
+            id="editAge"
+            name="editAge"
+            required
+            placeholder="Enter new age..."
+          />
+          <button type="submit">Edit</button>
+        </form>
+      </div>
+    </div>
+
+    <footer>
+      <div class="footer">
+        <ul class="first-row">
+          <li class="footer-title"><p>About</p></li>
+          <li>
+            <p>
+              pure lite is owned and operated by <br />
+              Purelite Inc., a liquor company that<br />offers the best pure
+              beer in the market today!
+            </p>
+          </li>
+          <li>
+            <p>Any questions? Our email address is ask@purelite.com</p>
+          </li>
+          <li>
+            <p>Drink Responsibly</p>
+          </li>
+          <li>
+            <p>Credit to pureliteTM</p>
+          </li>
+        </ul>
+
+        <ul class="second-row">
+          <li class="footer-title"><p>Info</p></li>
+          <li><a href="#">Search</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Frequently Asked Questions</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Terms and Conditions</a></li>
+          <li><a href="#">Privacy policy</a></li>
+          <li><a href="#">Returns and refunds policy</a></li>
+          <li><a href="#">Shop Our Instagram</a></li>
+        </ul>
+
+        <div class="footer-logos">
+          <div class="first-logo"><img src="../imgs/logo.png" alt="" /></div>
+          <div class="second-logo"><img src="../imgs/logo.png" alt="" /></div>
+        </div>
+        <div class="footer-left-side">
+          <img src="imgs/footer1.png" alt="" />
+        </div>
+        <div class="footer-bottom">
+          <img src="imgs/footer2.png" alt="" />
+        </div>
+      </div>
+    </footer>
+
+    <!-- HTML code -->
+
+    <script>
+      var modal = document.getElementById("myModal");
+
+      // Get the button that opens the modal
+      var btn = document.getElementById("profileBtn");
+
+      // Get the <span> element that closes the modal
+      var span = document.getElementsByClassName("close")[0];
+
+      // When the user clicks on the button, open the modal
+      btn.onclick = function () {
+        modal.style.display = "block";
+      };
+
+      // When the user clicks on <span> (x), close the modal
+      span.onclick = function () {
+        modal.style.display = "none";
+      };
+
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      };
+
+      async function fetchProfileData() {
+        const token = localStorage.getItem("token");
+        if (token) {
+          const response = await fetch("/users/profile", {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          });
+          const data = await response.json();
+          console.log("Profile data:", data);
+
+          // Display user data
+          const profileDataDiv = document.getElementById("profileData");
+          if (data.user) {
+            profileDataDiv.innerHTML = `
+        <p id="currLogin">Login: ${data.user.login}</p>
+        <p id="currName">Name: ${data.user.name}</p>
+        <p id="currAge">Age: ${data.user.age}</p>
+        <!-- Display other user data here -->
+      `;
+
+            // Display order history
+            const orderHistoryList = document.getElementById("orderHistory");
+            orderHistoryList.innerHTML = ""; // Clear previous data
+            if (data.user.orderHistory.length > 0) {
+              data.user.orderHistory.forEach((order) => {
+                const listItem = document.createElement("li");
+                listItem.textContent = `${order.name}: $${order.price}`;
+                orderHistoryList.appendChild(listItem);
+              });
+            } else {
+              const listItem = document.createElement("li");
+              listItem.textContent = "No order history available.";
+              orderHistoryList.appendChild(listItem);
+            }
+          } else {
+            profileDataDiv.textContent = "User data not found.";
+          }
+        } else {
+          console.log("Token not found in local storage.");
+        }
+      }
+
+      async function updateNavigation() {
+        const token = localStorage.getItem("token");
+        if (token) {
+          // User is logged in
+          document.getElementById("profileBtn").style.display = "block";
+          document.getElementById("logoutBtn").style.display = "block";
+          document.getElementById("signInBtn").style.display = "none";
+          document.getElementById("signUpBtn").style.display = "none";
+        } else {
+          // User is not logged in
+          document.getElementById("profileBtn").style.display = "none";
+          document.getElementById("logoutBtn").style.display = "none";
+          document.getElementById("signInBtn").style.display = "block";
+          document.getElementById("signUpBtn").style.display = "block";
+        }
+      }
+
+      // Function to handle logout
+      function logout() {
+        localStorage.removeItem("token");
+        updateNavigation();
+        window.location.href = "/";
+      }
+
+      // Call fetchProfileData and updateNavigation when the page loads
+      window.onload = function () {
+        fetchProfileData();
+        updateNavigation();
+      };
+
+      // Add event listener to form submission
+      // Add event listener to form submission
+      // Add event listener to form submission
+      const editProfileForm = document.getElementById("editProfileForm");
+      editProfileForm.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        // Get the input field values from the form
+        const editName = document.getElementById("editName").value;
+        const editAge = document.getElementById("editAge").value;
+
+        try {
+          // Fetch current user data
+          const response = await fetch("/users/profile", {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          });
+          const data = await response.json();
+
+          // Extract login and name from the current user data
+          const login = data.user.login;
+          const name = data.user.name;
+
+          // Construct the JSON object to send to the server
+          const jsonFormData = {
+            editName: editName,
+            editAge: editAge,
+            login: login,
+            name: name,
+          };
+
+          // Send the JSON data to the server
+          const token = localStorage.getItem("token");
+          const editResponse = await fetch("/users/editProfile", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + token,
+            },
+            body: JSON.stringify(jsonFormData),
+          });
+          const editData = await editResponse.json();
+
+          if (editData.success) {
+            // Close the modal
+            modal.style.display = "none";
+            // Refresh profile data
+            fetchProfileData();
+          } else {
+            // Display error message to the user
+            alert(editData.message);
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          // Handle errors
+          alert("An error occurred while updating the profile.");
+        }
+      });
+    </script>
+
+    <!-- CSS and other HTML code -->
+
+    <link rel="stylesheet" href="\styles\main.css" />
+
+    <!-- <script src="\JS\auth.js"></script> -->
+  </body>
+</html>

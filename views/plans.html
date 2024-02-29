@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Ubuntu"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="header-grid">
+      <a href="#"><img src="../imgs/logo.png" alt="" /></a>
+      <menu>
+        <li><a href="/" class="active">Home</a></li>
+        <li><a href="/plans">Plans</a></li>
+        <li><a href="/contacts">Contacts</a></li>
+      </menu>
+
+      <div class="btn-group">
+        <button class="profile" id="profileBtn" style="display: none">
+          <a class="profile" href="/profile">Profile</a>
+        </button>
+        <button id="logoutBtn" onclick="logout()" style="display: none">
+          <a>Log out</a>
+        </button>
+
+        <button id="signInBtn" class="signInBtn">
+          <a href="/users/signUp">Sign Up</a>
+        </button>
+        <button id="signUpBtn" class="signUpBtn">
+          <a href="/users/signIn">Sign In</a>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="price-plans">
+        <h2>What we can offer?</h2>
+        <div class="plans">
+          <div class="plan">
+            <img src="../imgs/alatau.jpg" alt="">
+            <h3>Medeu</h1>
+            <div class="wrapper fill red">
+              
+            </div>
+            <h1 id="price">$2000</h1>
+            <p>Unlimited subdomens</p>
+            <button class="fill red" onclick="buyTour('Medeu', '$2000')">BUY</button>
+          </div>
+
+          <div class="plan">
+            <img src="../imgs/boro.jpg" alt="">
+            <h3>Borovoe</h1>
+            <div class="wrapper fill red">
+              
+            </div>
+            <h1 id="price">$1200</h1>
+            <p>Unlimited subdomens</p>
+            <button class="fill red" onclick="buyTour('Borovoe', '$1200')">BUY</button>
+          </div>
+
+          <div class="plan">
+            <img src="../imgs/katon.jpg" alt="">
+            <h3>Katon-Karagai</h1>
+            <div class="wrapper fill red">
+              
+            </div>
+            <h1 id="price">$1300</h1>
+            <p>Unlimited subdomens</p>
+            <button class="fill red" onclick="buyTour('Katon-Karagai', '$1300')">BUY</button>
+          </div>
+          
+        </div>
+      </section>
+    </main>
+    <link rel="stylesheet" href="/styles/plans.css" />
+    <!-- <script src="\JS\auth.js"></script> -->
+    <script>
+      function updateNavigation() {
+        const token = localStorage.getItem("token");
+        if (token) {
+          // User is logged in
+          document.getElementById("profileBtn").style.display = "block";
+          document.getElementById("logoutBtn").style.display = "block";
+          document.getElementById("signInBtn").style.display = "none";
+          document.getElementById("signUpBtn").style.display = "none";
+        } else {
+          // User is not logged in
+          document.getElementById("profileBtn").style.display = "none";
+          document.getElementById("logoutBtn").style.display = "none";
+          document.getElementById("signInBtn").style.display = "block";
+          document.getElementById("signUpBtn").style.display = "block";
+        }
+      }
+
+      // Function to handle logout
+      function logout() {
+        localStorage.removeItem("token");
+        updateNavigation();
+        window.location.href = "/";
+      }
+
+      // Call updateNavigation when the page loads
+      updateNavigation();
+
+
+      async function buyTour(tourName, price) {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          alert("Please sign in to purchase tours.");
+          return;
+        }
+      
+        try {
+          const response = await fetch("/product/buyProduct", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": "Bearer " + token
+            },
+            body: JSON.stringify({ tour: { name: tourName, price: price } })
+          });
+          const data = await response.json();
+          if (data.success) {
+            alert("Tour purchased successfully!");
+          } else {
+            alert("Failed to purchase tour. Please try again later.");
+          }
+        } catch (error) {
+          console.error("Error purchasing tour:", error);
+          alert("An error occurred while purchasing the tour. Please try again later.");
+        }
+      }
+      
+    </script>
+  </body>
+</html>

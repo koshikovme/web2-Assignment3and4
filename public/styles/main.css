@@ -1,0 +1,447 @@
+@import url(https://fonts.googleapis.com/css?family=Michroma);
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: white;
+  color: white;
+}
+
+:root {
+  --container: 1280;
+}
+
+.header-grid {
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 40px;
+  align-items: center;
+  background: black;
+
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header-grid > *,
+.btn-group button {
+  font-family: "Ubuntu", sans-serif;
+}
+
+header a {
+  margin-left: 20px;
+  transition-duration: 1s;
+}
+
+a img {
+  width: 100px;
+}
+
+header a:hover {
+  transform: scale(1.2);
+  transition-duration: 1s;
+}
+
+header a {
+  grid-column-start: 2;
+  grid-column-end: 3;
+}
+
+header menu {
+  grid-column-start: 3;
+  grid-column-end: 8;
+}
+
+header menu {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 40px;
+  list-style-type: none;
+  align-items: center;
+}
+
+header menu li {
+  text-align: center;
+}
+
+header menu li a {
+  transition: 1s;
+  color: white;
+  text-decoration: none;
+}
+
+header menu li:hover {
+  transform: scale(1.2);
+  transition: 1s;
+}
+
+.profile {
+  color: black;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  margin-left: 200px;
+}
+
+.active {
+  font-size: 24px;
+
+  grid-column-start: 1;
+  grid-column-end: 2;
+}
+
+header menu li:nth-child(2) {
+  font-size: 12px;
+  grid-column-start: 2;
+  grid-column-end: 7;
+}
+
+header menu li:nth-child(3) {
+  font-size: 12px;
+  grid-column-start: 7;
+  grid-column-end: 10;
+}
+
+header .btn-group {
+  grid-column-start: 12;
+  grid-column-end: 13;
+  float: right;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.jumbotron {
+  background: url("../imgs/test2.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: auto;
+  height: 720px;
+  font-family: "Ubuntu", sans-serif;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(12, 1fr);
+}
+
+.jumbotron h1 {
+  font-size: 56px;
+  color: white;
+}
+.offer {
+  grid-row-start: 3;
+  grid-row-end: 5;
+
+  grid-column-start: 2;
+  grid-column-end: 4;
+}
+
+.offer button {
+  width: 200px;
+  height: 60px;
+
+  border: 5px solid darkred;
+  font-family: "Ubuntu", sans-serif;
+  background: darkred;
+  color: white;
+
+  transition-duration: 1s;
+}
+
+.offer button:hover {
+  transform: scale(1.2);
+  transition-duration: 1s;
+}
+
+.to-fill {
+  grid-row-start: 4;
+  grid-row-end: 13;
+  grid-column-start: 8;
+  grid-column-end: 13;
+}
+
+.to-fill form > input {
+  display: block;
+}
+
+input[type="text"] {
+  background-color: darkseagreen;
+  border: 5px solid white;
+
+  color: white;
+  font-family: "Ubuntu", sans-serif;
+  width: 300px;
+  height: 50px;
+}
+
+input[type="text"]::placeholder {
+  color: var(--text-secondary);
+  padding-left: 10px;
+  font-weight: 900;
+}
+
+input[type="submit"] {
+  font-family: "Ubuntu", sans-serif;
+  background: darkseagreen;
+  color: white;
+  padding-left: 10px;
+  padding: 20px;
+  font-size: 16px;
+  height: min-content;
+  font-weight: 900;
+
+  margin-top: 20px;
+  transition-duration: 1s;
+}
+
+input[type="submit"]:hover {
+  transform: scale(1.2);
+  transition-duration: 1s;
+}
+
+#editAge {
+  background-color: darkseagreen;
+  border: 5px solid white;
+
+  color: white;
+  font-family: "Ubuntu", sans-serif;
+  width: 300px;
+  height: 50px;
+}
+
+#editAge::placeholder {
+  color: var(--text-secondary);
+  padding-left: 10px;
+  font-weight: 900;
+}
+.features {
+  font-family: "Ubuntu", sans-serif;
+  color: black;
+}
+
+.features h2 {
+  text-align: center;
+  padding: 30px;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* .feature {
+} */
+
+.feature img {
+  width: 400px;
+  clip-path: circle(40%);
+  transition-duration: 1s;
+}
+
+.feature img:hover {
+  transform: scale(1.2);
+  transition-duration: 1s;
+}
+
+.about-us {
+  font-family: "Ubuntu", sans-serif;
+}
+
+.about-us h2,
+p {
+  padding: 25px;
+}
+
+.about-us img {
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+
+  filter: brightness(40%);
+}
+
+.about-us p {
+  padding: 25px;
+}
+
+.about-us .text {
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+}
+
+.about-us .text h2 {
+  grid-row-start: 1;
+  grid-row-end: 2;
+
+  grid-column-start: 1;
+  grid-column-end: 7;
+}
+
+.about-us .text p {
+  grid-row-start: 2;
+  grid-row-end: 12;
+
+  grid-column-start: 1;
+  grid-column-end: 5;
+}
+
+footer {
+  background: rgb(40, 40, 40);
+}
+.footer {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+
+  font-family: "Ubuntu", sans-serif;
+}
+
+.footer > * {
+  margin-top: 100px;
+}
+
+.first-row {
+  grid-column-start: 2;
+  grid-column-end: 5;
+  grid-row-start: 1;
+  grid-row-end: 5;
+
+  list-style-type: none;
+}
+
+.first-row li {
+  margin-bottom: 10px; /* Adjust the margin as needed */
+}
+
+.second-row li {
+  margin-bottom: 10px; /* Adjust the margin as needed */
+}
+
+.first-row li > a,
+.second-row li > a {
+  color: var(--text);
+}
+
+.second-row {
+  grid-column-start: 5;
+  grid-column-end: 7;
+  grid-row-start: 1;
+  grid-row-end: 5;
+
+  list-style-type: none;
+}
+
+.first-row .footer-title {
+  font-size: 24px;
+  color: var(--text-secondary);
+}
+
+.first-row li:not(.footer-title) {
+  font-size: 16px;
+}
+
+.second-row .footer-title {
+  font-size: 24px;
+  color: var(--text-secondary);
+}
+
+.second-row li:not(.footer-title) {
+  font-size: 16px;
+}
+
+.first-row li:not(.footer-title) > p {
+  font-family: "Ubuntu", sans-serif;
+  color: var(--text);
+}
+
+.second-row li:not(.footer-title) > a {
+  font-family: "Ubuntu", sans-serif;
+  color: var(--text);
+}
+
+.footer-logos {
+  grid-column-start: 8;
+  grid-column-end: 13;
+  grid-row-start: 1;
+  grid-row-end: 5;
+
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+}
+
+.first-logo {
+  grid-row-start: 1;
+  grid-row-end: 2;
+  transition: 1s;
+}
+
+.first-logo img {
+  width: 400px;
+}
+
+.second-logo {
+  grid-row-start: 2;
+  grid-row-end: 3;
+  transition: 1s;
+}
+
+.first-logo:hover {
+  transform: scale(1.2);
+  transition: 2s;
+}
+
+.second-logo:hover {
+  transform: scale(1.2);
+  transition: 2s;
+}
+
+.second-logo img {
+  width: 400px;
+}
+
+.footer-left-side {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 7;
+
+  position: relative;
+}
+
+.footer-left-side img {
+  position: absolute;
+  top: 15%;
+  left: 0;
+}
+
+.footer-bottom {
+  grid-column-start: 3;
+  grid-column-end: 13;
+  grid-row-start: 5;
+  grid-row-end: 7;
+
+  position: relative;
+}
+
+.footer-bottom img {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+}
+
+/* .profile {
+  display: none;
+} */
