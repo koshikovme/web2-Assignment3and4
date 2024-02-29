@@ -1,17 +1,17 @@
 var path = require("path");
 
 exports.main = function (request, response) {
-  response.sendFile(path.resolve(__dirname, "../views/main.html"));
+  response.sendFile("C:\\Users\\Алимжан\\Desktop\\node2\\views\\main.html");
 };
 
 exports.plans = function (request, response) {
-  response.sendFile(path.resolve(__dirname, "../views/plans.html"));
+  response.sendFile("C:\\Users\\Алимжан\\Desktop\\node2\\views\\plans.html");
 };
 
 exports.contacts = function (request, response) {
-  response.sendFile(path.resolve(__dirname, "../views/contacts.html"));
+  response.sendFile("C:\\Users\\Алимжан\\Desktop\\node2\\views\\contacts.html");
 };
 
 exports.profile = function (request, response) {
-  response.sendFile(path.resolve(__dirname, "../views/profile.html"));
+  response.sendFile("C:\\Users\\Алимжан\\Desktop\\node2\\views\\profile.html");
 };
