@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const JWT_SECRET = "icnsicb8*#*)!@CNSIOIEOIENW";
 // Sign In controller
 exports.signInForm = function (req, res) {
-  res.sendFile("C:\\Users\\Алимжан\\Desktop\\node2\\views\\signIn.html");
+  res.sendFile("../views/signIn.html");
 };
 
 exports.signIn = async function (req, res) {
@@ -108,7 +108,7 @@ exports.authenticateToken = function (req, res, next) {
 
 // Sign Up controller
 exports.signUpForm = function (req, res) {
-  res.sendFile("C:\\Users\\Алимжан\\Desktop\\node2\\views\\signUp.html");
+  res.sendFile("../views/signUp.html");
 };
 
 exports.signUp = async function (req, res) {
